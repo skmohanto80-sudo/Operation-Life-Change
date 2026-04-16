@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operation Life Change</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Operation Life Change</p>
+          <img class="brand-logo" src="../../Pictures/OPARATION LIFE CHANGE OFFICIAL.png" alt="Operation Life Change logo">
+          <h1>Operation Life Change</h1>
+          <p class="hero-text">Build discipline, store daily records, and grow your life one focused day at a time.</p>
+        </div>
+
+        <nav class="nav-list" aria-label="Main sections">
+          <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+          <button class="nav-btn" data-view="daily-goals">Daily Goals</button>
+          <button class="nav-btn" data-view="household">Household</button>
+          <button class="nav-btn" data-view="study">Study</button>
+          <button class="nav-btn" data-view="fitness">Fitness</button>
+          <button class="nav-btn" data-view="religion">Religion</button>
+          <button class="nav-btn" data-view="water">Water</button>
+          <button class="nav-btn" data-view="screen-time">Screen Time</button>
+          <button class="nav-btn" data-view="weekly">Weekly Planner</button>
+          <button class="nav-btn" data-view="reflection">Reflection</button>
+        </nav>
+
+        <section class="hero-card today-card">
+          <p class="hero-card-label">Today</p>
+          <h2 id="todayDate">Loading...</h2>
+          <p id="todayYear" class="today-year">Loading year...</p>
+          <p id="liveClock" class="live-clock">00:00:00</p>
+          <p id="dailyMessage" class="hero-card-text">Let&apos;s build a strong routine, one step at a time.</p>
+        </section>
+
+        <section class="panel mini-panel">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="section-tag">Today&apos;s Affirmation</p>
+              <h2>Motivation</h2>
+            </div>
+          </div>
+          <form id="affirmationForm" class="stack-form">
+            <label>
+              Daily thought
+              <textarea id="affirmationText" rows="3" placeholder="I will stay focused, calm, and disciplined today."></textarea>
+            </label>
+            <button type="submit" class="primary-btn">Save Affirmation</button>
+          </form>
+        </section>
+
+        <section class="panel mini-panel auth-panel">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="section-tag">Free Account</p>
+              <h2>Login and Sync</h2>
+            </div>
+          </div>
+          <p id="authStatus" class="hero-text">Local mode active. Add free Supabase keys to enable cross-device sync.</p>
+          <form id="authForm" class="stack-form">
+            <label>
+              Email
+              <input type="email" id="authEmail" placeholder="you@example.com">
+            </label>
+            <label>
+              Password
+              <input type="password" id="authPassword" placeholder="Create a strong password">
+            </label>
+            <div class="auth-actions">
+              <button type="button" id="signUpBtn" class="secondary-btn">Sign Up</button>
+              <button type="button" id="signInBtn" class="primary-btn">Log In</button>
+            </div>
+            <button type="button" id="signOutBtn" class="secondary-btn">Log Out</button>
+          </form>
+          <p class="panel-note domain-note">Free domain for now: yourapp.vercel.app</p>
+        </section>
+      </aside>
+
+      <main class="view-stack">
+        <section class="view active" id="view-dashboard">
+          <section class="panel panel-highlight">
+            <div class="panel-heading">
+              <div>
+                <p class="section-tag">Overview</p>
+                <h2>Today&apos;s Mission Control</h2>
+              </div>
+            </div>
+            <div class="stats-grid six-up">
+              <article class="stat-card"><span class="stat-label">Today&apos;s Points</span><strong id="totalPoints">0</strong></article>
+              <article class="stat-card"><span class="stat-label">Study Hours</span><strong id="studyHours">0</strong></article>
+              <article class="stat-card"><span class="stat-label">Study Score</span><strong id="studyScoreStat">0</strong></article>
+              <article class="stat-card"><span class="stat-label">Screen Time</span><strong id="screenTimeStat">0m</strong></article>
+              <article class="stat-card"><span class="stat-label">Water Intake</span><strong id="waterStat">0 ml</strong></article>
+              <article class="stat-card"><span class="stat-label">Daily Goals Done</span><strong id="completedGoalsStat">0</strong></article>
+            </div>
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel quick-panel">
+              <p class="section-tag">Daily Goals</p>
+              <h2>Main Plan</h2>
+              <p id="dashboardAffirmation">No affirmation saved yet.</p>
+              <button class="primary-btn jump-btn" data-view="daily-goals">Open Daily Goals</button>
+            </article>
+            <article class="panel quick-panel">
+              <p class="section-tag">Water Progress</p>
+              <h2>Hydration</h2>
+              <div class="progress-track"><span id="waterProgressBar" class="progress-fill"></span></div>
+              <p id="waterProgressText">0 of 2000 ml</p>
+            </article>
+            <article class="panel quick-panel">
+              <p class="section-tag">Goal Progress</p>
+              <h2>Completion Rate</h2>
+              <div class="progress-track"><span id="goalProgressBar" class="progress-fill"></span></div>
+              <p id="goalProgressText">0% complete</p>
+            </article>
+            <article class="panel quick-panel">
+              <p class="section-tag">Daily Ratings</p>
+              <h2>Life Balance</h2>
+              <div id="ratingsOverview" class="rating-summary-grid"></div>
+            </article>
+          </section>
+
+          <section class="analytics-grid">
+            <article class="panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Charts</p><h2>Last 7 Days</h2></div></div>
+              <div id="chartBars" class="chart-bars"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Daily History</p><h2>Recent Records</h2></div></div>
+              <div id="historyList" class="history-list"></div>
+            </article>
+          </section>
+        </section>
+
+        <section class="view" id="view-daily-goals">
+          <div class="section-workspace goals-layout">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Daily Goals</p><h2>Today&apos;s Goal List</h2></div></div>
+              <form id="goalForm" class="stack-form">
+                <label>Goal<input type="text" id="goalText" placeholder="Finish math homework and revise chapter 3" required></label>
+                <button type="submit" class="primary-btn">Add Goal</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Today</p><h2>Goal Checklist</h2></div></div>
+              <div id="dailyGoalList" class="card-list empty-state"></div>
+              <div class="nested-links">
+                <button class="secondary-btn jump-btn" data-view="household">Household</button>
+                <button class="secondary-btn jump-btn" data-view="study">Study</button>
+                <button class="secondary-btn jump-btn" data-view="fitness">Fitness</button>
+                <button class="secondary-btn jump-btn" data-view="religion">Religion</button>
+                <button class="secondary-btn jump-btn" data-view="water">Water</button>
+                <button class="secondary-btn jump-btn" data-view="screen-time">Screen Time</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-household">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Household</p><h2>Point-Based Tasks</h2></div><p class="panel-note">Points are saved to today&apos;s record.</p></div>
+              <form id="taskForm" class="stack-form">
+                <label>Task name<input type="text" id="taskName" placeholder="Wash dishes" required></label>
+                <label>Points<input type="number" id="taskPoints" min="1" placeholder="5" required></label>
+                <button type="submit" class="primary-btn">Add Task</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Task History</h2></div></div>
+              <div id="taskList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-study">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Study</p><h2>Study Tracker</h2></div></div>
+              <form id="studyForm" class="stack-form">
+                <label>Subject<input type="text" id="studySubject" placeholder="Mathematics" required></label>
+                <label>Hours studied<input type="number" id="studyTime" min="0" step="0.5" placeholder="1.5" required></label>
+                <label>Score / Marks<input type="number" id="studyScore" min="0" placeholder="85"></label>
+                <label>Note<textarea id="studyNote" rows="3" placeholder="Finished chapter 4"></textarea></label>
+                <button type="submit" class="primary-btn">Save Study Session</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Study Sessions</h2></div></div>
+              <div id="studyList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-fitness">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Fitness</p><h2>Fitness and Body Records</h2></div></div>
+              <form id="fitnessForm" class="stack-form">
+                <label>Activity<input type="text" id="fitnessActivity" placeholder="Push-ups" required></label>
+                <label>Goal or amount<input type="text" id="fitnessGoal" placeholder="30 reps / 2 km / 20 min" required></label>
+                <label>Height (cm)<input type="number" id="fitnessHeight" min="0" step="0.1" placeholder="165"></label>
+                <label>Weight (kg)<input type="number" id="fitnessWeight" min="0" step="0.1" placeholder="54"></label>
+                <button type="submit" class="primary-btn">Add Fitness Record</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Fitness Progress</h2></div></div>
+              <div id="fitnessList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-religion">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Religion</p><h2>Religion Habits</h2></div></div>
+              <form id="religionForm" class="stack-form">
+                <label>Practice<input type="text" id="religionPractice" placeholder="Prayer / Reading / Meditation" required></label>
+                <label>Goal<input type="text" id="religionGoal" placeholder="Morning and evening" required></label>
+                <button type="submit" class="primary-btn">Add Religion Habit</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Spiritual Progress</h2></div></div>
+              <div id="religionList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-water">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Water Intake</p><h2>Hydration Tracker</h2></div></div>
+              <form id="waterForm" class="stack-form">
+                <label>Water amount (ml)<input type="number" id="waterAmount" min="1" placeholder="250" required></label>
+                <label>Note<input type="text" id="waterNote" placeholder="Morning glass / after workout"></label>
+                <button type="submit" class="primary-btn">Add Water Intake</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Water Log</h2></div></div>
+              <div id="waterList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-screen-time">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Screen Time</p><h2>Usage Log</h2></div></div>
+              <form id="screenTimeForm" class="stack-form">
+                <label>Device<input type="text" id="screenDevice" placeholder="Phone / Laptop / Tablet" required></label>
+                <label>App<input type="text" id="screenApp" placeholder="YouTube / Chrome / WhatsApp" required></label>
+                <label>Purpose<input type="text" id="screenPurpose" placeholder="Study / entertainment / communication" required></label>
+                <label>Duration (minutes)<input type="number" id="screenMinutes" min="1" placeholder="45" required></label>
+                <button type="submit" class="primary-btn">Add Screen Record</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Records</p><h2>Today&apos;s Screen Time</h2></div></div>
+              <div id="screenTimeList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-weekly">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Weekly Planner</p><h2>Plan and Timetable</h2></div></div>
+              <form id="weeklyPlanForm" class="stack-form">
+                <label>Day
+                  <select id="weeklyDay">
+                    <option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+                  </select>
+                </label>
+                <label>Weekly plan<input type="text" id="weeklyTask" placeholder="Practice math and clean room" required></label>
+                <button type="submit" class="primary-btn">Add Weekly Plan</button>
+              </form>
+              <form id="timetableForm" class="stack-form sub-form">
+                <label>Time<input type="text" id="timetableTime" placeholder="6:00 PM - 7:00 PM" required></label>
+                <label>Subject / Activity<input type="text" id="timetableTask" placeholder="Science revision" required></label>
+                <button type="submit" class="primary-btn">Add Timetable Item</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Planner</p><h2>This Week</h2></div></div>
+              <div id="weeklyPlanList" class="card-list empty-state"></div>
+              <div class="panel-heading compact-heading section-split"><div><p class="section-tag">Timetable</p><h2>Routine Slots</h2></div></div>
+              <div id="timetableList" class="card-list empty-state"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-reflection">
+          <div class="section-workspace">
+            <section class="panel section-form-panel">
+              <div class="panel-heading"><div><p class="section-tag">Reflection</p><h2>End of Day Review</h2></div></div>
+              <form id="reflectionForm" class="stack-form">
+                <label>Today&apos;s target<input type="text" id="mainGoal" placeholder="Complete homework and 2 household tasks"></label>
+                <label>Everyday result<textarea id="resultText" rows="3" placeholder="Today I finished my main tasks and stayed focused."></textarea></label>
+                <label>Notes for today<textarea id="reflectionText" rows="4" placeholder="What went well? What should improve?"></textarea></label>
+                <button type="submit" class="primary-btn">Save Reflection</button>
+              </form>
+            </section>
+            <section class="panel section-list-panel">
+              <div class="panel-heading compact-heading"><div><p class="section-tag">Saved</p><h2>Reflection Notes</h2></div></div>
+              <div class="reflection-box">
+                <h3>Saved Goal</h3><p id="savedGoal">No target saved yet.</p>
+                <h3>Everyday Result</h3><p id="savedResult">No result saved yet.</p>
+                <h3>Reflection Notes</h3><p id="savedReflection">No reflection saved yet.</p>
+              </div>
+              <div class="panel-heading compact-heading section-split"><div><p class="section-tag">Ratings</p><h2>Daily Rating Board</h2></div></div>
+              <div id="ratingBoard" class="rating-board"></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
